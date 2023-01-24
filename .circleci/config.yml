@@ -28,7 +28,7 @@ jobs:
   
   print-env-var:
     docker:
-      - image: circlec
+      - image: circleci/node:13.8.0
     steps:
       - run : echo $EnvTest
 
