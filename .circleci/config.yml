@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run:
           name: "write output"
-          command: echo "text to be retrieved" > output.txt
+          command: echo "text to be retrieved" > /tmp/workspace/output.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
