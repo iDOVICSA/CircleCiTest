@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Run Playbook and Configure servers
           command: |
-            ansible-playbook -i inventory.txt main-remote.yml -private-key ansible.pem
+            ansible-playbook -i inventory.txt main-remote.yml --private-key ansible.pem
 # Sequential workflow
 workflows:
   # Name the workflow
