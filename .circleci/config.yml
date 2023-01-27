@@ -6,20 +6,34 @@ orbs:
   # aws-cli: circleci/aws-cli@2.0.3
 # Define the jobs we want to run for this project
 jobs:
-  create_infrastructure: 
-      docker:
-        - image: amazon/aws-cli
-      steps:
-        - checkout
-        - run:
-            name: Create Cloudformation Stack
-            command: |
-              aws cloudformation deploy \
-                --template-file template.yml \
-                --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-                --region us-east-1
-        - run : echo [all]>inventory
-        - run : aws ec2 describe-instances         --query 'Reservations[*].Instances[*].PublicIpAddress'       --filters "Name=Project,Values=Udacity"       --output text >> inventory
+  # create_infrastructure: 
+  #     docker:
+  #       - image: amazon/aws-cli
+  #     steps:
+  #       - checkout
+  #       - run:
+  #           name: Create Cloudformation Stack
+  #           command: |
+  #             aws cloudformation deploy \
+  #               --template-file template.yml \
+  #               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+  #               --region us-east-1
+  configure_infrastructure: 
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+              # You can get this ID in the section where you registered the SSH Key
+              fingerprints: ["13:db:60:3d:54:1a:81:3d:2e:f1:cc:5b:5f:e8:22:04"] 
+      - run:
+          name: Install Ansible
+          command: |
+            apk add --update ansible
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            ansible-playbook -i inventory.txt main-remote.yml
 # Sequential workflow
 workflows:
   # Name the workflow
