@@ -94,4 +94,4 @@ workflows:
   # Name the workflow 
   myWorkflow:
     jobs:
-      - create_and_deploy_front_end
+      - get_last_deployment_id
