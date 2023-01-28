@@ -86,7 +86,7 @@ jobs:
             aws cloudformation \
             list-exports --query "Exports[?Name==\`PipelineID\`].Value" \
             --no-paginate --output text > ~/textfile.txt
-      - run : gedit ~/textfile.txt
+      - run : ls
       - persist_to_workspace:
           root: ~/
           paths: 
