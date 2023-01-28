@@ -60,7 +60,7 @@ jobs:
 
 
 workflows:
-  # Name the workflow
+  # Name the workflow 
   myWorkflow:
     jobs:
       - smoke_test
